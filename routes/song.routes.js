@@ -12,7 +12,7 @@ songRouter.post('/generate', auth, async (req, res) => {
     const data = await newSong.save();
     res.status(201).json({ song: data });
   } catch (err) {
-    res.status(500).json({ message: 'Somethig went wrong, try again' });
+    res.status(500).json({ message: `Somethig went wrong, try again: ${err}` });
   }
 });
 
