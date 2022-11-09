@@ -1,0 +1,5 @@
+{
+  "port": 5000,
+  "jwtSecret": "restartbank",
+  "mongoUrl": "mongodb+srv://mixassio:12345@cluster0.fyczczs.mongodb.net/?retryWrites=true&w=majority"
+}
