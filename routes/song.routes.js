@@ -18,8 +18,14 @@ songRouter.post('/generate', auth, async (req, res) => {
 
 songRouter.get('/', auth, async (req, res) => {
   try {
-    const songs = await Song.find({ owner: req.user.userId });
-    return res.json(songs);
+    const params = req.params;
+    const query = req.query;
+    // const songs = await Song.find({ owner: req.user.userId });
+    const songs = await Song.find().limit(query.limit).skip(query.limit * query.page);
+    const countSongs = await Song.count();
+    const authors = Array.from(new Set(songs.map(s => s.author)))
+    const zhanres = Array.from(new Set(songs.map(s => s.zhanre)));
+    return res.json({ data: songs, countSongs, filters: { authors, zhanres }});
   } catch (err) {
     res.status(500).json({ message: 'Somethig went wrong, try again' });
   }
